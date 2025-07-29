@@ -1,10 +1,22 @@
-let posts = [
-  {
-    id: 1,
-    title: "My first post",
-    content: "Hello everyone, Node is fun",
-    author: "Suraj Adegoke",
-  },
-];
+const mongoose = require("mongoose");
 
-module.exports = posts;
+const postSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: String,
+    default: "Anonymous",
+  },
+  createAt: {
+    type: String,
+    default: Date.now,
+  },
+});
+
+module.exports = mongoose.model("Post", postSchema, "blogPosts");
