@@ -1,6 +1,7 @@
 const express = require("express");
 const postValidationRules = require("../validators/postValidator");
 const validate = require("../middleWares/postMiddleware");
+const authMiddleware = require("../middleWares/authMiddleware");
 const router = express.Router();
 const {
   getPosts,
@@ -12,7 +13,7 @@ const {
 
 router.get("/post", getPosts);
 router.get("/post/:id", getPostById);
-router.post("/post", postValidationRules, validate, createPost);
+router.post("/post", authMiddleware, postValidationRules, validate, createPost);
 router.put("/post/:id", updatePost);
 router.delete("/post/:id", deletePost);
 
