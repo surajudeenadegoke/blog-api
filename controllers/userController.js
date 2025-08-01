@@ -25,10 +25,10 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
     if (!user)
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(403).json({ message: "Invalid email or password" });
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch)
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(403).json({ message: "Invalid email or password" });
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,

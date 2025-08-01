@@ -4,19 +4,26 @@ const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    trim: true,
   },
-  content: {
+  body: {
     type: String,
     required: true,
   },
-  author: {
-    type: String,
-    default: "Anonymous",
+  coverImage: {
+    type: String, // could be a URL or local path
   },
-  createAt: {
-    type: String,
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users", // reference to the User model
+    required: true,
+  },
+  tags: [String],
+  createdAt: {
+    type: Date,
     default: Date.now,
   },
+  updatedAt: Date,
 });
 
 module.exports = mongoose.model("Post", postSchema, "blogPosts");
